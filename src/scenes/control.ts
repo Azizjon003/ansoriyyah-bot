@@ -46,7 +46,7 @@ scene.hears("Kursga a'zo bo'lish", async (ctx: any) => {
 
 scene.hears("Uyga vazifa yuborish", (ctx: any) => {
   const text =
-    "Vazifangizni yuboring\n\n Vazifani pdf ko'rinishida yuboring\nMasalan <b>1-dars 2-topshiriq</b> ko'rinishida ";
+    "Vazifangizni yuboring\n\n Vazifani pdf ko'rinishida yuboring\nMasalan <b>1-dars 2-topshiriq</b> ko'rinishida\nDiqqat bir kunda 3 martagacha vazifa yuborishingiz mumkin";
   ctx.reply(text, {
     parse_mode: "HTML",
   });
