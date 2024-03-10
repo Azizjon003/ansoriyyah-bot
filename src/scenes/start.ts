@@ -14,6 +14,8 @@ export let keyboard2 = [
   "Foydalanuvchilar",
   "Hamma foydalanuchilarga xabar yuborish",
   "Bugungi statistika",
+
+  "Nimadir",
 ];
 
 scene.enter(async (ctx: any) => {
