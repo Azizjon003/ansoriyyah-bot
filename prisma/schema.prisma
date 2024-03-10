@@ -25,6 +25,18 @@ model User {
   role      RoleEnum @default(USER)      
   telegram_id String @unique
   isActive  Boolean @default(true)
+  pupil   Pupil[]
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+
+model Pupil {
+  id       String  @id @default(uuid())
+  name     String?
+  userId   String @unique
+  user     User    @relation(fields: [userId], references: [id])
+  isActive Boolean @default(true)
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 }

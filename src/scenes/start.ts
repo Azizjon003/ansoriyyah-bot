@@ -23,11 +23,7 @@ scene.enter(async (ctx: any) => {
 
   if (enable === "one") {
     ctx.reply(
-      `Assalomu alaykum va rahmatullohi va barokatuh ✨🍃
-    Talab 🗣️
-    Taklif va murojatlar 💌
-    Vazifa 📑 larni yoʻllashingiz mumkin
-    .... Bu yerda birorta aqlli gap boʻladi`,
+      `Assalomu alaykum va Rahmatullohi va barokatuh ✨🍃\n\nTalablar🥰\n\nTaklif va murojaatlar 💌\n\nVazifa 📑 larni yo‘llashingiz mumkin\n\nIlm ila iymon sari yo‘l\n\nسبيل إلى الإيمان عبر العلم`,
       keyboards(keyboard)
     );
 
