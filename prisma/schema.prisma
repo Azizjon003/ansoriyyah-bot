@@ -26,6 +26,7 @@ model User {
   telegram_id String @unique
   isActive  Boolean @default(true)
   pupil   Pupil[]
+  homework homework[]
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 }
@@ -41,3 +42,13 @@ model Pupil {
   updated_at DateTime @updatedAt
 }
 
+
+model homework {
+  id       String  @id @default(uuid())
+  file_id  String?
+  caption  String?
+  userId   String
+  user     User    @relation(fields: [userId], references: [id])
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}

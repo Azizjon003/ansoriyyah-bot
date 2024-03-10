@@ -14,6 +14,7 @@ export let keyboard2 = [
   "Hamma foydalanuchilarga xabar yuborish",
   "Bugungi statistika",
 ];
+
 scene.enter(async (ctx: any) => {
   const user_id = ctx.from?.id;
 

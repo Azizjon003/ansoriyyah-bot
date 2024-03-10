@@ -44,6 +44,15 @@ scene.hears("Kursga a'zo bo'lish", async (ctx: any) => {
   }
 });
 
+scene.hears("Uyga vazifa yuborish", (ctx: any) => {
+  const text =
+    "Vazifangizni yuboring\n\n Vazifani pdf ko'rinishida yuboring\nMasalan <b>1-dars 2-topshiriq</b> ko'rinishida ";
+  ctx.reply(text, {
+    parse_mode: "HTML",
+  });
+  ctx.scene.enter("homework");
+});
+
 scene.on("message", async (ctx: any) => {
   if (ctx.session.user?.action === "register") {
     const user_id = ctx.from?.id;
