@@ -7,6 +7,7 @@ import {
   keyboards,
 } from "../utils/keyboards";
 import { isPupil } from "../utils/isPupil";
+import { chatID } from "./homework";
 const scene = new Scenes.BaseScene("control");
 
 scene.hears("/start", (ctx: any) => {
@@ -77,8 +78,32 @@ scene.on("message", async (ctx: any) => {
         userId: user.id,
       },
     });
-    ctx.reply("Tabriklaymiz siz kursga a'zo boldingiz");
+    ctx.reply(
+      "Tabriklaymiz siz kursga a'zo boldingiz.Admin tasdiqlashini kuting biz sizga yopiq guruhga qo'shilish uchun link beramiz"
+    );
+
     ctx.session.user = {};
+    ctx.telegram.sendMessage(
+      chatID,
+      `Yangi foydalanuvchi ro'yxatdan o'tdi\n <a href="tg://user?id=${user_id}">${user_name}</a> yangi foydalanuvchi`,
+      {
+        parse_mode: "HTML",
+        reply_markup: {
+          inline_keyboard: [
+            [
+              {
+                text: "Qabul qilish",
+                callback_data: `add_${user?.id}`,
+              },
+              {
+                text: "Rad etish",
+                callback_data: `blok_${user?.id}`,
+              },
+            ],
+          ],
+        },
+      }
+    );
     ctx.scene.enter("start");
   } else {
     ctx.reply("Men sizni tushuna olmadim.Uzr meni qayta ishga tushuring");
