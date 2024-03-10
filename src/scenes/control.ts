@@ -53,6 +53,11 @@ scene.hears("Uyga vazifa yuborish", (ctx: any) => {
   ctx.scene.enter("homework");
 });
 
+scene.hears("Murojaat qoldirish", (ctx: any) => {
+  ctx.reply("Murojaat qoldirish.Faqat matnli xabar qoldirishingiz mumkin");
+  ctx.scene.enter("contact");
+});
+
 scene.on("message", async (ctx: any) => {
   if (ctx.session.user?.action === "register") {
     const user_id = ctx.from?.id;

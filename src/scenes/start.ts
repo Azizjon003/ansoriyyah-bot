@@ -2,6 +2,7 @@ import { Scenes } from "telegraf";
 import enabled from "../utils/enabled";
 import prisma from "../../prisma/prisma";
 import { keyboards } from "../utils/keyboards";
+import { chatID } from "./homework";
 const scene = new Scenes.BaseScene("start");
 
 export let keyboard = [
@@ -22,12 +23,21 @@ scene.enter(async (ctx: any) => {
 
   const enable = await enabled(String(user_id), String(user_name));
 
-  if (enable === "one") {
+  if (enable === "one" || enable === "four") {
     ctx.reply(
       `Assalomu alaykum va Rahmatullohi va barokatuh ✨🍃\n\nTalablar🥰\n\nTaklif va murojaatlar 💌\n\nVazifa 📑 larni yo‘llashingiz mumkin\n\nIlm ila iymon sari yo‘l\n\nسبيل إلى الإيمان عبر العلم`,
       keyboards(keyboard)
     );
 
+    if (enable === "four") {
+      ctx.telegram.sendMessage(
+        chatID,
+        "Yangi foydalanuvchi ro'yxatdan o'tdi" +
+          "\n" +
+          user_name +
+          " yangi user"
+      );
+    }
     return ctx.scene.enter("control");
   } else if (enable === "two") {
     const text = "Assalomu alaykum Admin xush kelibsiz";

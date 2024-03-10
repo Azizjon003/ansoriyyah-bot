@@ -3,6 +3,7 @@ enum enabledEnum {
   one = "one",
   two = "two",
   three = "three",
+  four = "four",
 }
 const enabled = async (id: string, name: string): Promise<enabledEnum> => {
   const user = await prisma.user.findFirst({
@@ -31,7 +32,7 @@ const enabled = async (id: string, name: string): Promise<enabledEnum> => {
       },
     });
 
-    return enabledEnum.one;
+    return enabledEnum.four;
   }
 };
 

@@ -7,7 +7,7 @@ import {
   keyboards,
 } from "../utils/keyboards";
 import { isPupil } from "../utils/isPupil";
-const chatID = -1002061554438;
+export const chatID = -1002061554438;
 const scene = new Scenes.BaseScene("homework");
 
 scene.hears("/start", (ctx: any) => {
