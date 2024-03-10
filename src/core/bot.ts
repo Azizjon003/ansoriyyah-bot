@@ -136,6 +136,8 @@ bot.action(/add_[0-9a-fA-F-]+/, async (ctx: any) => {
     ctx.answerCbQuery("Siz admin emassiz");
   }
 
+  ctx.telegram.deleteMessage(chatID, ctx.callbackQuery?.message?.message_id);
+
   ctx.answerCbQuery("Qabul qilindingiz");
 
   ctx.telegram.sendMessage(chatID, `Foydalanuvchi qabul qilindi ${user?.name}`);

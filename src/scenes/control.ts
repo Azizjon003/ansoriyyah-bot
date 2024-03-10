@@ -97,7 +97,7 @@ scene.on("message", async (ctx: any) => {
               },
               {
                 text: "Rad etish",
-                callback_data: `blok_${user?.id}`,
+                callback_data: `stop_${user?.id}`,
               },
             ],
           ],
