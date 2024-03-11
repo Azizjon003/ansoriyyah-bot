@@ -67,6 +67,25 @@ scene.hears("Murojaat qoldirish", (ctx: any) => {
   ctx.scene.enter("contact");
 });
 
+scene.hears("Hamma foydalanuchilarga xabar yuborish", async (ctx: any) => {
+  const id = ctx.from?.id;
+  const user = await prisma.user.findFirst({
+    where: {
+      telegram_id: String(id),
+      role: "ADMIN",
+    },
+  });
+  if (!user) {
+    ctx.reply("Siz admin emassiz");
+    return ctx.scene.enter("start");
+  }
+
+  ctx.reply(
+    "Xabaringizni yuboring\n Bu xabar barcha foydalanuvchilarga yuboriladi"
+  );
+  ctx.scene.enter("sendMessage");
+});
+
 scene.on("message", async (ctx: any) => {
   if (ctx.session.user?.action === "register") {
     const user_id = ctx.from?.id;
