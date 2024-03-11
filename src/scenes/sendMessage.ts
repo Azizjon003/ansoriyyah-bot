@@ -8,7 +8,7 @@ import {
 } from "../utils/keyboards";
 import { isPupil } from "../utils/isPupil";
 import { chatID } from "./homework";
-const scene = new Scenes.BaseScene("sendMessages");
+const scene = new Scenes.BaseScene("sendMessage");
 
 scene.hears("/start", (ctx: any) => {
   ctx.scene.enter("start");
