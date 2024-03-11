@@ -29,7 +29,7 @@ scene.on("message", async (ctx: any) => {
 
     for (let i = 0; i < users.length; i++) {
       try {
-        ctx.telegram.sendMessage(users[i].telegram_id, message);
+        await ctx.telegram.sendMessage(users[i].telegram_id, message);
       } catch (error) {
         console.log(error);
         continue;
