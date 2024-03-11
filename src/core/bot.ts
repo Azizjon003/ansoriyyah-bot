@@ -59,6 +59,15 @@ bot.action(/group_-?\d+=(\d+)$/, async (ctx: any) => {
     chatID,
     `Foydalanuvchi ${user?.name} guruhga qo'shildi`
   );
+
+  await prisma.pupil.updateMany({
+    where: {
+      userId: user?.id,
+    },
+    data: {
+      isActive: true,
+    },
+  });
 });
 bot.action(/check_[0-9a-fA-F-]+/, async (ctx: any) => {
   const userId = ctx.match.input.split("_")[1];
@@ -268,9 +277,11 @@ bot.action(/stop_[0-9a-fA-F-]+/, async (ctx: any) => {
   if (!admin) {
     ctx.answerCbQuery("Siz admin emassiz");
   }
+  ctx.telegram.deleteMessage(chatID, ctx.callbackQuery?.message?.message_id);
 
   ctx.answerCbQuery("So'rovingiz rad etildi");
 
+  ctx.telegram.sendMessage(chatID, `Foydalanuvchi ${user?.name} rad etildi`);
   // ctx.telegram.editMessageCaption(
   //   chatId,
   //   messageId,

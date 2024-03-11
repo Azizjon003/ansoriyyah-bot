@@ -12,6 +12,11 @@ const main = async () => {
       telegram_id: "-1002075034438",
       users_name: "Banyda yadayk",
     },
+    {
+      name: "Ansoriyyah {Muallim Soniy}💌",
+      telegram_id: "-1002092942951",
+      users_name: "Muallim Soniy",
+    },
   ];
 
   const groups = await prisma.groups.createMany({

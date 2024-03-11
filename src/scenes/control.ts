@@ -76,6 +76,7 @@ scene.on("message", async (ctx: any) => {
       data: {
         name: ctx.message.text,
         userId: user.id,
+        isActive: false,
       },
     });
     const groups = await prisma.groups.findMany();
@@ -155,6 +156,8 @@ scene.action(/target_[0-9a-fA-F-]+/, async (ctx: any) => {
     ctx.callbackQuery?.message?.message_id
   );
   ctx.answerCbQuery("Qabul qilindingiz. Admin tasdiqlashini kuting");
+
+  ctx.reply("Qabul qilindingiz. Admin tasdiqlashini kuting");
 
   ctx.telegram.sendMessage(
     chatID,
