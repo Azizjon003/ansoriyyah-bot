@@ -24,11 +24,27 @@ scene.on("message", async (ctx: any) => {
   });
   if (!user) return ctx.reply("Siz ro'yxatdan o'tmagansiz");
 
-  ctx.telegram.sendMessage(
+  // ctx.telegram.sendMessage(
+  //   chatID,
+  //   text + "\n" + user?.name + " tomonidan yuborildi"
+  // );
+  console.log(user?.id, user_id, chatID, text);
+
+  let messages = await ctx.telegram.forwardMessage(
     chatID,
-    text + "\n" + user?.name + " tomonidan yuborildi"
+    user_id,
+    ctx.message.message_id
   );
-  ctx.reply("Murojaatingiz qabul qilindi");
+
+  let message = await prisma.message.create({
+    data: {
+      user_id: user?.id,
+      message_id: String(messages.message_id),
+      text: messages.text,
+    },
+  });
+
+  ctx.reply("Murojaatingiz qabul qilindi.Admin javobini kuting");
   await prisma.user.update({
     where: {
       id: user?.id,

@@ -27,6 +27,7 @@ model User {
   isActive  Boolean @default(true)
   pupil   Pupil[]
   homework homework[]
+  message message[]
   group_id String?
   action  String?
   created_at DateTime @default(now())
@@ -60,6 +61,16 @@ model groups {
   name    String?
   telegram_id String @unique
   users_name String?
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model message {
+  id       String  @id @default(uuid())
+  text     String?
+  message_id String 
+  user_id  String
+  user     User    @relation(fields: [user_id], references: [id])
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 }

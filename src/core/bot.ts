@@ -50,7 +50,7 @@ bot.action(/group_-?\d+=(\d+)$/, async (ctx: any) => {
     String(group?.telegram_id),
     {
       member_limit: 1,
-      expire_date: Math.floor(Date.now() / 1000) + 300,
+      // expire_date: Math.floor(Date.now() / 1000) + 300,
     }
   );
 
@@ -308,4 +308,5 @@ bot.action(/stop_[0-9a-fA-F-]+/, async (ctx: any) => {
     "Sizning so'rovingiz rad etildi.Qayta yuborib ko'ring"
   );
 });
+
 export default bot;
