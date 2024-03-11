@@ -27,6 +27,7 @@ model User {
   isActive  Boolean @default(true)
   pupil   Pupil[]
   homework homework[]
+  group_id String?
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 }
@@ -49,6 +50,15 @@ model homework {
   caption  String?
   userId   String
   user     User    @relation(fields: [userId], references: [id])
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model groups {
+  id      String  @id @default(uuid())
+  name    String?
+  telegram_id String @unique
+  users_name String?
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 }

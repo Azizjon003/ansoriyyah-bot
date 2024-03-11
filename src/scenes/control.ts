@@ -78,35 +78,106 @@ scene.on("message", async (ctx: any) => {
         userId: user.id,
       },
     });
+    const groups = await prisma.groups.findMany();
+    const keyboards = [];
+    for (const group of groups) {
+      keyboards.push([
+        {
+          text: group.users_name,
+          callback_data: "target_" + group.id,
+        },
+      ]);
+    }
     ctx.reply(
-      "Tabriklaymiz siz kursga a'zo boldingiz.Admin tasdiqlashini kuting biz sizga yopiq guruhga qo'shilish uchun link beramiz"
-    );
-
-    ctx.session.user = {};
-    ctx.telegram.sendMessage(
-      chatID,
-      `Yangi foydalanuvchi ro'yxatdan o'tdi\n <a href="tg://user?id=${user_id}">${user_name}</a> yangi foydalanuvchi`,
+      "Qaysi guruhga qo'shilishingizni tanlang.Admin tasdiqlashini kuting biz sizga yopiq guruhga qo'shilish uchun link beramiz",
       {
-        parse_mode: "HTML",
         reply_markup: {
-          inline_keyboard: [
-            [
-              {
-                text: "Qabul qilish",
-                callback_data: `add_${user?.id}`,
-              },
-              {
-                text: "Rad etish",
-                callback_data: `stop_${user?.id}`,
-              },
-            ],
-          ],
+          inline_keyboard: keyboards,
         },
       }
     );
-    ctx.scene.enter("start");
+
+    ctx.session.user = {
+      action: "target",
+    };
+    // ctx.telegram.sendMessage(
+    //   chatID,
+    //   `Yangi foydalanuvchi ro'yxatdan o'tdi\n <a href="tg://user?id=${user_id}">${user_name}</a> yangi foydalanuvchi\nU  guruhga a'zo bo'lmoqchi`,
+    //   {
+    //     parse_mode: "HTML",
+    //     reply_markup: {
+    //       inline_keyboard: [
+    //         [
+    //           {
+    //             text: "Qabul qilish",
+    //             callback_data: `add_${user?.id}`,
+    //           },
+    //           {
+    //             text: "Rad etish",
+    //             callback_data: `stop_${user?.id}`,
+    //           },
+    //         ],
+    //       ],
+    //     },
+    //   }
+    // );
+    // ctx.scene.enter("start");
   } else {
     ctx.reply("Men sizni tushuna olmadim.Uzr meni qayta ishga tushuring");
   }
+});
+scene.action(/target_[0-9a-fA-F-]+/, async (ctx: any) => {
+  const action = ctx.session.user?.action;
+  if (action !== "target") {
+    ctx.answerCbQuery("Siz allaqachon kursga a'zo bo'lgansiz");
+    return;
+  }
+  const targetId = ctx.match.input.split("_")[1];
+  const userId = ctx.from?.id;
+  const user = await prisma.user.findFirst({
+    where: {
+      telegram_id: String(userId),
+    },
+  });
+  const group = await prisma.groups.findFirst({
+    where: {
+      id: String(targetId),
+    },
+  });
+  if (!user) {
+    return ctx.answerCbQuery("Foydalanuvchi topilmadi");
+  }
+  if (!group) {
+    return ctx.answerCbQuery("Guruh topilmadi");
+  }
+  await ctx.telegram.deleteMessage(
+    userId,
+    ctx.callbackQuery?.message?.message_id
+  );
+  ctx.answerCbQuery("Qabul qilindingiz. Admin tasdiqlashini kuting");
+
+  ctx.telegram.sendMessage(
+    chatID,
+    `Yangi foydalanuvchi ro'yxatdan o'tdi\n <a href="tg://user?id=${userId}">${user.name}</a> yangi foydalanuvchi\nU ${group.name} guruhga a'zo bo'lmoqchi`,
+    {
+      parse_mode: "HTML",
+      reply_markup: {
+        inline_keyboard: [
+          [
+            {
+              text: "Qabul qilish",
+              callback_data: `add_${user?.id}`,
+            },
+            {
+              text: "Rad etish",
+              callback_data: `stop_${user?.id}`,
+            },
+          ],
+        ],
+      },
+    }
+  );
+
+  ctx.scene.enter("start");
 });
 export default scene;

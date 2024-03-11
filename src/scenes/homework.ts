@@ -31,6 +31,7 @@ scene.on("document", async (ctx: any) => {
   const enable = await isPupil(String(user_id));
   if (!enable) {
     ctx.reply("Siz talaba emassiz");
+    return ctx.scene.enter("start");
   }
 
   if (extention === "pdf") {
