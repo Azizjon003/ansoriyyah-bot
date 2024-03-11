@@ -32,6 +32,7 @@ scene.on("message", async (ctx: any) => {
         ctx.telegram.sendMessage(users[i].telegram_id, message);
       } catch (error) {
         console.log(error);
+        continue;
         // ctx.reply("Xatolik yuz berdi");
       }
     }
