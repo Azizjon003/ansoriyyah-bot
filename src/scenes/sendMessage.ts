@@ -35,6 +35,8 @@ scene.on("message", async (ctx: any) => {
         ctx.reply("Xatolik yuz berdi");
       }
     }
+    ctx.reply("Xabar barcha foydalanuvchilarga yuborildi");
+    ctx.scene.enter("start");
   } catch (error) {
     console.log(error);
     // ctx.reply("Xatolik yuz berdi");
