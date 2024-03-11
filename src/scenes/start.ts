@@ -5,7 +5,8 @@ import { keyboards } from "../utils/keyboards";
 import { chatID } from "./homework";
 const scene = new Scenes.BaseScene("start");
 
-export let keyboard = [
+export let keyboard = ["Kursga a'zo bo'lish", "Murojaat qoldirish"];
+export let keyboard3 = [
   "Kursga a'zo bo'lish",
   "Uyga vazifa yuborish",
   "Murojaat qoldirish",
@@ -23,10 +24,10 @@ scene.enter(async (ctx: any) => {
 
   const enable = await enabled(String(user_id), String(user_name));
 
-  if (enable === "one" || enable === "four") {
+  if (enable === "one" || enable === "four" || enable === "five") {
     ctx.reply(
       `Assalomu alaykum va Rahmatullohi va barokatuh ✨🍃\n\nTalablar🥰\n\nTaklif va murojaatlar 💌\n\nVazifa 📑 larni yo‘llashingiz mumkin\n\nIlm ila iymon sari yo‘l\n\nسبيل إلى الإيمان عبر العلم`,
-      keyboards(keyboard)
+      keyboards(enable === "five" ? keyboard3 : keyboard)
     );
 
     if (enable === "four") {
