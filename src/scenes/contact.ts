@@ -29,6 +29,14 @@ scene.on("message", async (ctx: any) => {
     text + "\n" + user?.name + " tomonidan yuborildi"
   );
   ctx.reply("Murojaatingiz qabul qilindi");
+  await prisma.user.update({
+    where: {
+      id: user?.id,
+    },
+    data: {
+      action: "menu",
+    },
+  });
   ctx.scene.enter("start");
 });
 

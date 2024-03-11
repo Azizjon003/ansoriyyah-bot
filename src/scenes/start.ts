@@ -24,11 +24,20 @@ scene.enter(async (ctx: any) => {
 
   const enable = await enabled(String(user_id), String(user_name));
 
-  if (enable === "one" || enable === "four" || enable === "five") {
-    ctx.reply(
-      `Assalomu alaykum va Rahmatullohi va barokatuh ✨🍃\n\nTalablar🥰\n\nTaklif va murojaatlar 💌\n\nVazifa 📑 larni yo‘llashingiz mumkin\n\nIlm ila iymon sari yo‘l\n\nسبيل إلى الإيمان عبر العلم`,
-      keyboards(enable === "five" ? keyboard3 : keyboard)
-    );
+  if (
+    enable === "one" ||
+    enable === "four" ||
+    enable === "five" ||
+    enable === "sex"
+  ) {
+    if (enable === "sex") {
+      ctx.reply("Bosh menyudasiz", keyboards(keyboard3));
+    } else {
+      ctx.reply(
+        `Assalomu alaykum va Rahmatullohi va barokatuh ✨🍃\n\nTalablar🥰\n\nTaklif va murojaatlar 💌\n\nVazifa 📑 larni yo‘llashingiz mumkin\n\nIlm ila iymon sari yo‘l\n\nسبيل إلى الإيمان عبر العلم`,
+        keyboards(enable === "five" ? keyboard3 : keyboard)
+      );
+    }
 
     if (enable === "four") {
       ctx.telegram.sendMessage(

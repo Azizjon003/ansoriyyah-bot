@@ -35,6 +35,14 @@ scene.hears("Kursga a'zo bo'lish", async (ctx: any) => {
     ctx.reply(text, {
       parse_mode: "HTML",
     });
+    await prisma.user.updateMany({
+      where: {
+        telegram_id: String(user_id),
+      },
+      data: {
+        action: "menu",
+      },
+    });
     ctx.scene.enter("start");
   } else {
     ctx.reply("Ismingizni aniq kiriting");
@@ -139,6 +147,9 @@ scene.action(/target_[0-9a-fA-F-]+/, async (ctx: any) => {
     where: {
       telegram_id: String(userId),
     },
+    include: {
+      pupil: true,
+    },
   });
   const group = await prisma.groups.findFirst({
     where: {
@@ -161,7 +172,7 @@ scene.action(/target_[0-9a-fA-F-]+/, async (ctx: any) => {
 
   ctx.telegram.sendMessage(
     chatID,
-    `Yangi foydalanuvchi ro'yxatdan o'tdi\n <a href="tg://user?id=${userId}">${user.name}</a> yangi foydalanuvchi\nU ${group.name} guruhga a'zo bo'lmoqchi`,
+    `Yangi foydalanuvchi ro'yxatdan o'tdi\n <a href="tg://user?id=${userId}">${user?.pupil[0].name}</a> yangi foydalanuvchi\nU ${group.name} guruhga a'zo bo'lmoqchi`,
     {
       parse_mode: "HTML",
       reply_markup: {
@@ -180,6 +191,14 @@ scene.action(/target_[0-9a-fA-F-]+/, async (ctx: any) => {
       },
     }
   );
+  await prisma.user.update({
+    where: {
+      id: user?.id,
+    },
+    data: {
+      action: "menu",
+    },
+  });
 
   ctx.scene.enter("start");
 });

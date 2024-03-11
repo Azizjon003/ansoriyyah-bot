@@ -23,6 +23,9 @@ bot.action(/group_-?\d+=(\d+)$/, async (ctx: any) => {
     where: {
       telegram_id: user_telegram_id,
     },
+    include: {
+      pupil: true,
+    },
   });
   console.log(user);
   if (!user) {
@@ -57,7 +60,7 @@ bot.action(/group_-?\d+=(\d+)$/, async (ctx: any) => {
   );
   ctx.telegram.sendMessage(
     chatID,
-    `Foydalanuvchi ${user?.name} guruhga qo'shildi`
+    `Foydalanuvchi ${user?.pupil[0].name} guruhga qo'shildi`
   );
 
   await prisma.pupil.updateMany({
@@ -78,6 +81,9 @@ bot.action(/check_[0-9a-fA-F-]+/, async (ctx: any) => {
   const user = await prisma.user.findFirst({
     where: {
       id: String(userId),
+    },
+    include: {
+      pupil: true,
     },
   });
   if (!user) {
@@ -184,6 +190,9 @@ bot.action(/add_[0-9a-fA-F-]+/, async (ctx: any) => {
     where: {
       id: String(userId),
     },
+    include: {
+      pupil: true,
+    },
   });
   if (!user) {
     ctx.answerCbQuery("Foydalanuvchi topilmadi");
@@ -223,7 +232,7 @@ bot.action(/add_[0-9a-fA-F-]+/, async (ctx: any) => {
   console.log(keyboards);
   ctx.telegram.sendMessage(
     chatID,
-    `Foydalanuvchini qaysi guruhga qo'shasiz ${user?.name}`,
+    `Foydalanuvchini qaysi guruhga qo'shasiz ${user?.pupil[0].name}`,
     {
       reply_markup: {
         inline_keyboard: keyboards,
@@ -263,6 +272,9 @@ bot.action(/stop_[0-9a-fA-F-]+/, async (ctx: any) => {
     where: {
       id: String(userId),
     },
+    include: {
+      pupil: true,
+    },
   });
   if (!user) {
     ctx.answerCbQuery("Foydalanuvchi topilmadi");
@@ -281,7 +293,10 @@ bot.action(/stop_[0-9a-fA-F-]+/, async (ctx: any) => {
 
   ctx.answerCbQuery("So'rovingiz rad etildi");
 
-  ctx.telegram.sendMessage(chatID, `Foydalanuvchi ${user?.name} rad etildi`);
+  ctx.telegram.sendMessage(
+    chatID,
+    `Foydalanuvchi ${user?.pupil[0].name} rad etildi`
+  );
   // ctx.telegram.editMessageCaption(
   //   chatId,
   //   messageId,

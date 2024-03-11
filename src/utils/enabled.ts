@@ -5,6 +5,7 @@ enum enabledEnum {
   three = "three",
   four = "four",
   five = "five",
+  sex = "sex",
 }
 const enabled = async (id: string, name: string): Promise<enabledEnum> => {
   const user = await prisma.user.findFirst({
@@ -23,6 +24,9 @@ const enabled = async (id: string, name: string): Promise<enabledEnum> => {
     if (user.role === "USER") {
       if (user?.pupil[0]?.isActive) {
         return enabledEnum.five;
+      }
+      if (user?.action === "menu") {
+        return enabledEnum.sex;
       }
       return enabledEnum.one;
     } else if (user.role === "ADMIN") {

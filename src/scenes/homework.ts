@@ -49,6 +49,14 @@ scene.on("document", async (ctx: any) => {
       ctx.reply(
         "Siz bir kunda 3 marta vazifa yuborishingiz mumkin.Bu 3 imkoniyatdan foydalanib bo'ldingiz"
       );
+      await prisma.user.update({
+        where: {
+          id: user?.id,
+        },
+        data: {
+          action: "menu",
+        },
+      });
       return ctx.scene.enter("start");
     }
     await prisma.homework.create({
@@ -82,6 +90,7 @@ scene.on("document", async (ctx: any) => {
   } else {
     ctx.reply("Faqat pdf formatda yuboring");
   }
+
   ctx.scene.enter("start");
 });
 
