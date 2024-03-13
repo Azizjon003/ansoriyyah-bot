@@ -124,7 +124,7 @@ bot.action(/check_[0-9a-fA-F-]+/, async (ctx: any) => {
     String(user?.telegram_id),
     "Sizning vazifangiz tekshirildi",
     keyboards([
-      "Kursga a'zo bo'lish",
+      // "Kursga a'zo bo'lish",
       "Uyga vazifa yuborish",
       "Murojaat qoldirish",
     ])
@@ -176,7 +176,7 @@ bot.action(/cancel_[0-9a-fA-F-]+/, async (ctx: any) => {
     String(user?.telegram_id),
     "Sizning vazifangiz rad etildi.Qayta yuborib ko'ring",
     keyboards([
-      "Kursga a'zo bo'lish",
+      // "Kursga a'zo bo'lish",
       "Uyga vazifa yuborish",
       "Murojaat qoldirish",
     ])
