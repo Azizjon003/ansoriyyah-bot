@@ -14,48 +14,48 @@ scene.hears("/start", (ctx: any) => {
   ctx.scene.enter("start");
 });
 
-scene.hears("Kursga a'zo bo'lish", async (ctx: any) => {
-  const user_id = ctx.from?.id;
-  const user_name = ctx.from?.first_name || ctx.from?.username;
-  const enable = await isPupil(String(user_id));
+// scene.hears("Kursga a'zo bo'lish", async (ctx: any) => {
+//   const user_id = ctx.from?.id;
+//   const user_name = ctx.from?.first_name || ctx.from?.username;
+//   const enable = await isPupil(String(user_id));
 
-  if (enable) {
-    const pupil = await prisma.pupil.findFirst({
-      where: {
-        user: {
-          telegram_id: String(user_id),
-        },
-      },
-    });
-    const text =
-      "Siz allaqachon kursga a'zo bo'lgansiz" +
-      "\n<i>" +
-      pupil?.name +
-      "</i> ismingiz";
-    ctx.reply(text, {
-      parse_mode: "HTML",
-    });
-    await prisma.user.updateMany({
-      where: {
-        telegram_id: String(user_id),
-      },
-      data: {
-        action: "menu",
-      },
-    });
-    ctx.scene.enter("start");
-  } else {
-    ctx.reply("Ismingizni aniq kiriting");
-    ctx.session.user = {
-      action: "register",
-    };
-    return;
-  }
-});
+//   if (enable) {
+//     const pupil = await prisma.pupil.findFirst({
+//       where: {
+//         user: {
+//           telegram_id: String(user_id),
+//         },
+//       },
+//     });
+//     const text =
+//       "Siz allaqachon kursga a'zo bo'lgansiz" +
+//       "\n<i>" +
+//       pupil?.name +
+//       "</i> ismingiz";
+//     ctx.reply(text, {
+//       parse_mode: "HTML",
+//     });
+//     await prisma.user.updateMany({
+//       where: {
+//         telegram_id: String(user_id),
+//       },
+//       data: {
+//         action: "menu",
+//       },
+//     });
+//     ctx.scene.enter("start");
+//   } else {
+//     ctx.reply("Ismingizni aniq kiriting");
+//     ctx.session.user = {
+//       action: "register",
+//     };
+//     return;
+//   }
+// });
 
 scene.hears("Uyga vazifa yuborish", (ctx: any) => {
   const text =
-    "Vazifangizni yuboring\n\n Vazifani pdf ko'rinishida yuboring\nMasalan <b>1-dars 2-topshiriq</b> ko'rinishida\nDiqqat bir kunda 3 martagacha vazifa yuborishingiz mumkin";
+    "Vazifangizni yuboring\n\n Vazifani pdf yoki ovozli xabar ko'rinishida yuboring\nMasalan <b>1-dars 2-topshiriq</b> ko'rinishida\nDiqqat bir kunda 3 martagacha vazifa yuborishingiz mumkin";
   ctx.reply(text, {
     parse_mode: "HTML",
   });

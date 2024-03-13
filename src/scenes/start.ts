@@ -7,7 +7,7 @@ const scene = new Scenes.BaseScene("start");
 
 export let keyboard = ["Kursga a'zo bo'lish", "Murojaat qoldirish"];
 export let keyboard3 = [
-  "Kursga a'zo bo'lish",
+  // "Kursga a'zo bo'lish",
   "Uyga vazifa yuborish",
   "Murojaat qoldirish",
 ];
@@ -15,6 +15,8 @@ export let keyboard2 = [
   "Foydalanuvchilar",
   "Hamma foydalanuchilarga xabar yuborish",
   "Bugungi statistika",
+  "Uyga vazifa yuborish",
+  "Murojaat qoldirish",
 ];
 
 scene.enter(async (ctx: any) => {
