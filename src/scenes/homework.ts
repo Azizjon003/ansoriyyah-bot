@@ -149,6 +149,7 @@ scene.on("voice", async (ctx: any) => {
   );
 
   ctx.telegram.sendDocument(chatID, file_id, {
+    parse_mode: "HTML",
     caption: caption
       ? caption
       : "hech qanday qo'shimcha ma'lumotlar yo'q" +
@@ -156,7 +157,6 @@ scene.on("voice", async (ctx: any) => {
         `<a href="tg://user?id=${user_id}">${user?.pupil[0].name}</a>` +
         " tomonidan yuborildi",
     reply_markup: {
-      parse_mode: "HTML",
       inline_keyboard: [
         [
           {
